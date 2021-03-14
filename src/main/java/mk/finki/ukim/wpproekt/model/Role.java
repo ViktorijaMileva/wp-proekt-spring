@@ -1,10 +1,10 @@
 package mk.finki.ukim.wpproekt.model;
 
-//implements GrantedAuthority
-public enum Role  {
+public enum  Role /*implements GrantedAuthority*/ {
+
     ROLE_USER, ROLE_ADMIN;
 
-    /*@Override
+  /*  @Override
     public String getAuthority() {
         return name();
     }*/
