@@ -1,4 +1,4 @@
-package mk.finki.ukim.wpproekt.AuthRequestResponse;
+package mk.finki.ukim.wpproekt.authRequestResponse;
 
 public class AuthResponse {
     private final String jwt;

@@ -1,9 +1,8 @@
-package mk.finki.ukim.wpproekt.AuthService;
+package mk.finki.ukim.wpproekt.authService;
 
 import io.jsonwebtoken.Claims;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.xml.crypto.Data;
 import java.util.Date;
 import java.util.Map;
 import java.util.function.Function;

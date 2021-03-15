@@ -1,6 +1,6 @@
 package mk.finki.ukim.wpproekt.service.serviceImpl;
 
-import mk.finki.ukim.wpproekt.model.Breed;
+import mk.finki.ukim.wpproekt.model.dataTransfer.FoodDto;
 import mk.finki.ukim.wpproekt.model.Food;
 import mk.finki.ukim.wpproekt.repository.BreedRepository;
 import mk.finki.ukim.wpproekt.repository.FoodRepository;
@@ -8,7 +8,6 @@ import mk.finki.ukim.wpproekt.service.FoodService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,6 +40,24 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
+    public Optional<Food> save(FoodDto foodDto) {
+        Food food = new Food(foodDto.getFoodType(), foodDto.getIntendedFor(), foodDto.getQuantity(), foodDto.getDescription(), foodDto.getImage());
+        this.foodRepository.save(food);
+        return Optional.of(food);
+    }
+
+    @Override
+    public Optional<Food> edit(Long id, FoodDto foodDto) {
+        Food food = this.foodRepository.findById(id).orElseThrow();
+        food.setFoodType(foodDto.getFoodType());
+        food.setIntendedFor(foodDto.getIntendedFor());
+        food.setQuantity(foodDto.getQuantity());
+        food.setDescription(foodDto.getDescription());
+        food.setImage(foodDto.getImage());
+        return Optional.of(food);
+    }
+
+    @Override
     public Food delete(Long id) {
         Food food = this.foodRepository.findById(id).orElseThrow();
         this.foodRepository.delete(food);
@@ -58,18 +75,4 @@ public class FoodServiceImpl implements FoodService {
         return this.foodRepository.save(food);
     }
 
-    /*@Override
-    public Food assignFood(Long breedId, Long foodId) {
-        Breed breed = this.breedRepository.findById(breedId).orElseThrow();
-        Food food = this.foodRepository.findById(foodId).orElseThrow();
-        return this.foodRepository.save(food);
-    }*/
-
-    /*@Override
-    public Food assignFood(List<Long> breedIdList, Long foodId) {
-        List<Breed> breedList = this.breedRepository.findAllById(breedIdList);
-        Food food = this.foodRepository.findById(foodId).orElseThrow();
-        food.getBreedList().addAll(breedList);
-        return this.foodRepository.save(food);
-    }*/
 }

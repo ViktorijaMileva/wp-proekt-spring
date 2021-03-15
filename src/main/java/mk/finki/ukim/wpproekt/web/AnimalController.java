@@ -1,13 +1,11 @@
 package mk.finki.ukim.wpproekt.web;
 
 import mk.finki.ukim.wpproekt.model.Animal;
-import mk.finki.ukim.wpproekt.model.Breed;
-import mk.finki.ukim.wpproekt.model.Gender;
+import mk.finki.ukim.wpproekt.model.dataTransfer.AnimalDto;
 import mk.finki.ukim.wpproekt.service.AnimalService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -25,14 +23,11 @@ public class AnimalController {
         return animals;
     }
 
-    @PostMapping("/animals")
-    public Animal addAnimal(@RequestBody String name,
-                            @RequestBody int age,
-                            @RequestBody Breed breed,
-                            @RequestBody Gender gender,
-                            @RequestBody String description,
-                            @RequestBody MultipartFile image){
-        return this.animalService.create(name, age, breed, gender, description, image);
+    @PostMapping("/animals/add")
+    public ResponseEntity<Animal> addAnimal(@RequestBody AnimalDto animalDto){
+        return this.animalService.create(animalDto)
+                .map(animal -> ResponseEntity.ok().body(animal))
+                .orElseGet(() -> ResponseEntity.badRequest().build());
     }
 
     @PostMapping("/animals/{id}/delete")
@@ -42,13 +37,10 @@ public class AnimalController {
 
 
     @PostMapping("/animals/{id}")
-    public Animal editAnimal(@PathVariable Long id,
-                             @RequestBody String name,
-                             @RequestBody int age,
-                             @RequestBody List<Long> breedList,
-                             @RequestBody Gender gender,
-                             @RequestBody String description,
-                             @RequestBody MultipartFile image){
-        return this.animalService.edit(id, name, age, breedList, gender, description, image);
+    public ResponseEntity<Animal> editAnimal(@PathVariable Long id,
+                             @RequestBody AnimalDto animalDto){
+        return this.animalService.edit(id, animalDto)
+                .map(animal -> ResponseEntity.ok().body(animal))
+                .orElseGet(() -> ResponseEntity.badRequest().build());
     }
 }

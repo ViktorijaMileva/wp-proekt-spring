@@ -1,10 +1,10 @@
 package mk.finki.ukim.wpproekt.web;
 
-import mk.finki.ukim.wpproekt.model.Breed;
+import mk.finki.ukim.wpproekt.model.dataTransfer.FoodDto;
 import mk.finki.ukim.wpproekt.model.Food;
 import mk.finki.ukim.wpproekt.service.FoodService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -22,24 +22,19 @@ public class FoodController {
         return this.foodService.listAllFood();
     }
 
-    @PostMapping("/food")
-    public Food addFood(@RequestBody String foodType,
-                        @RequestBody String intendedFor,
-                        @RequestBody int quantity,
-                        @RequestBody String description,
-                        @RequestBody MultipartFile image){
-        return this.foodService.insertFood(foodType, intendedFor, quantity, description, image);
+    @PostMapping("/food/add")
+    public ResponseEntity<Food> addFood(@RequestBody FoodDto foodDto){
+        return this.foodService.save(foodDto)
+                .map(food -> ResponseEntity.ok().body(food))
+                .orElseGet(() -> ResponseEntity.badRequest().build());
+    }
+    @PostMapping("food/edit/{id}")
+    public ResponseEntity<Food> save(@PathVariable Long id, @RequestBody FoodDto foodDto) {
+        return this.foodService.edit(id, foodDto)
+                .map(product -> ResponseEntity.ok().body(product))
+                .orElseGet(() -> ResponseEntity.badRequest().build());
     }
 
-    @PostMapping("/food/{id}")
-    public Food editFood(@PathVariable Long id,
-                         @RequestBody String foodType,
-                         @RequestBody String intendedFor,
-                         @RequestBody int quantity,
-                         @RequestBody String description,
-                         @RequestBody MultipartFile image){
-        return this.foodService.edit(id, foodType, intendedFor, quantity, description, image);
-    }
 
     @PostMapping("/food/{id}/delete")
     public void deleteFood(@PathVariable Long id){

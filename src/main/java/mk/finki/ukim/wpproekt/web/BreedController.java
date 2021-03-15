@@ -1,7 +1,9 @@
 package mk.finki.ukim.wpproekt.web;
 
 import mk.finki.ukim.wpproekt.model.Breed;
+import mk.finki.ukim.wpproekt.model.dataTransfer.BreedDto;
 import mk.finki.ukim.wpproekt.service.BreedService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,10 +22,11 @@ public class BreedController {
         return this.breedService.listAll();
     }
 
-    @PostMapping("/breed")
-    public Breed addBreed(@RequestBody String growth,
-                          @RequestBody String breedName){
-        return this.breedService.create(growth, breedName);
+    @PostMapping("/breed/add")
+    public ResponseEntity<Breed> addBreed(@RequestBody BreedDto breedDto){
+        return this.breedService.create(breedDto)
+                .map(breed -> ResponseEntity.ok().body(breed))
+                .orElseGet(() -> ResponseEntity.badRequest().build());
     }
 
     @PostMapping("/breed/{id}/delete")

@@ -1,10 +1,11 @@
 package mk.finki.ukim.wpproekt.service;
 
-import mk.finki.ukim.wpproekt.model.Breed;
+import mk.finki.ukim.wpproekt.model.dataTransfer.FoodDto;
 import mk.finki.ukim.wpproekt.model.Food;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface FoodService {
 
@@ -18,6 +19,9 @@ public interface FoodService {
 
     Food findById(Long id);
 
-  //  Food assignFood(Long breedId, Long foodId);
-    // Food assignFood(List<Long> breedIdlist, Long foodId);
+    Optional<Food> save(FoodDto foodDto);
+
+    Optional<Food> edit(Long id, FoodDto foodDto);
+
+
 }

@@ -1,9 +1,9 @@
-package mk.finki.ukim.wpproekt.AuthService.impl;
+package mk.finki.ukim.wpproekt.authService.impl;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import mk.finki.ukim.wpproekt.AuthService.JwtService;
+import mk.finki.ukim.wpproekt.authService.JwtService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
