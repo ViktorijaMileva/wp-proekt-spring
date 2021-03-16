@@ -12,6 +12,8 @@ import java.util.Optional;
 public interface AnimalService {
     Optional<Animal> create(String name, int age, Breed breed, Gender gender, String description, MultipartFile image);
 
+    Optional<Animal> create(AnimalDto animalDto);
+
     Animal edit(Long id, String name, int age, List<Long> breedList, Gender gender, String description, MultipartFile image);
 
     Optional<Animal> edit(Long id, AnimalDto animalDto);
@@ -22,6 +24,6 @@ public interface AnimalService {
 
     Animal findById(Long id);
 
-    Optional<Animal> create(AnimalDto animalDto);
+
 }
 
