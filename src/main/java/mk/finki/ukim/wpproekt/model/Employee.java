@@ -1,6 +1,8 @@
 package mk.finki.ukim.wpproekt.model;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -23,10 +25,17 @@ public class Employee implements UserDetails {
     private String address;
     private Date EmployeeFrom;
     private Date EmployeeTo;
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
+   // @ToString.Exclude
     private List<Sale> sales;
     @Enumerated(value = EnumType.STRING)
     private Role role;
+
+    private boolean isAccountNonExpired = true;
+    private boolean isAccountNonLocked = true;
+    private boolean isCredentialsNonExpired = true;
+    private boolean isEnabled = true;
+
 
     public Employee(String name, String surname, String username, String password, Role role) {
         this.name = name;
@@ -110,27 +119,25 @@ public class Employee implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return isAccountNonExpired;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
-    }
+        return isAccountNonLocked;    }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return isCredentialsNonExpired;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
-    }
+        return isEnabled;   }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Collections.singleton(role);
     }
 
     public String getPassword() {

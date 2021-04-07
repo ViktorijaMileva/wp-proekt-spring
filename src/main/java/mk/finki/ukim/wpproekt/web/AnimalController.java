@@ -39,7 +39,8 @@ public class AnimalController {
     @PostMapping("/animals/{id}")
     public ResponseEntity<Animal> editAnimal(@PathVariable Long id,
                              @RequestBody AnimalDto animalDto){
-        return this.animalService.edit(id, animalDto)
+        return this.animalService.edit(
+                id, animalDto)
                 .map(animal -> ResponseEntity.ok().body(animal))
                 .orElseGet(() -> ResponseEntity.badRequest().build());
     }

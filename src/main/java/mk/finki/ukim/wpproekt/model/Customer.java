@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @Entity
 @JsonIgnoreProperties(value = { "breeds" })
-public class Customer {
+public class    Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long customerId;

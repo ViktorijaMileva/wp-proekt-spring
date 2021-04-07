@@ -21,6 +21,11 @@ public class Sale {
 
     }
 
+    @Override
+    public String toString(){
+        return saleId.toString();
+    }
+
     public Date getSaleDate() {
         return saleDate;
     }

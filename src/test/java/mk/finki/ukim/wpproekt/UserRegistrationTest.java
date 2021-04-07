@@ -17,7 +17,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
@@ -68,7 +67,7 @@ public class UserRegistrationTest {
     }
 
     @Test
-    public void testNullusername(){
+    public void testNullUsername(){
         String username = null;
 
         Assert.assertThrows("InvalidUsernameOrPasswordException, expected", InvalidUsernameOrPasswordException.class, () ->
