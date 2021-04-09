@@ -21,20 +21,20 @@ public class Employee implements UserDetails {
     private String surname;
     private String username;
     private String password;
-    private String phone;
+    /*private String phone;
     private String address;
     private Date EmployeeFrom;
-    private Date EmployeeTo;
-    @OneToMany(fetch = FetchType.LAZY)
+    private Date EmployeeTo;*/
+    /*@OneToMany(fetch = FetchType.LAZY)
    // @ToString.Exclude
-    private List<Sale> sales;
+    private List<Sale> sales;*/
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
-    private boolean isAccountNonExpired = true;
+    /*private boolean isAccountNonExpired = true;
     private boolean isAccountNonLocked = true;
     private boolean isCredentialsNonExpired = true;
-    private boolean isEnabled = true;
+    private boolean isEnabled = true;*/
 
 
     public Employee(String name, String surname, String username, String password, Role role) {
@@ -73,7 +73,7 @@ public class Employee implements UserDetails {
         this.password = password;
     }
 
-    public String getPhone() {
+    /*public String getPhone() {
         return phone;
     }
 
@@ -103,15 +103,15 @@ public class Employee implements UserDetails {
 
     public void setEmployeeTo(Date employeeTo) {
         EmployeeTo = employeeTo;
-    }
+    }*/
 
-    public List<Sale> getSales() {
+    /*public List<Sale> getSales() {
         return sales;
     }
 
     public void setSales(List<Sale> sales) {
         this.sales = sales;
-    }
+    }*/
 
     public String getUsername() {
         return username;
@@ -119,21 +119,21 @@ public class Employee implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return isAccountNonExpired;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return isAccountNonLocked;    }
+        return true;    }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return isCredentialsNonExpired;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return isEnabled;   }
+        return true;   }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
