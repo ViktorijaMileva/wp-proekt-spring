@@ -1,6 +1,5 @@
 package mk.finki.ukim.wpproekt.config;
 
-import mk.finki.ukim.wpproekt.model.Employee;
 import mk.finki.ukim.wpproekt.service.EmployeeService;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -31,7 +30,9 @@ public class CustomUsernamePasswordAuthenticationProvider implements Authenticat
             throw new BadCredentialsException("Invalid credentials");
         }
         UserDetails userDetails = this.employeeService.loadUserByUsername(username);
-        if (!passwordEncoder.matches(password, userDetails.getPassword())){
+        String userPassword = userDetails.getPassword();
+
+        if (!password.equals(userPassword)){
             throw new BadCredentialsException("Password is incorrect!");
 
         }

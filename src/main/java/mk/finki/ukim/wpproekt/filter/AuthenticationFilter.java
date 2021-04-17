@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwt;
 import lombok.AllArgsConstructor;
+import mk.finki.ukim.wpproekt.config.CustomUsernamePasswordAuthenticationProvider;
 import mk.finki.ukim.wpproekt.config.JwtAuthConstants;
 import mk.finki.ukim.wpproekt.model.Employee;
 import mk.finki.ukim.wpproekt.model.dataTransfer.UserDetailsDto;
@@ -34,7 +35,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    private final AuthenticationManager authenticationManager;
+    private final CustomUsernamePasswordAuthenticationProvider authenticationProvider;
     private final UserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
 
@@ -58,8 +59,8 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         if (!creds.getPassword().equals(userDetails.getPassword())){
             throw new PasswordsDoNotMatchException();
         }
-        return authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(userDetails.getUsername(), creds.getPassword(), userDetails.getAuthorities())
+        return authenticationProvider.authenticate(
+                    new UsernamePasswordAuthenticationToken(userDetails.getUsername(), creds.getPassword(), userDetails.getAuthorities())
         );
     }
 

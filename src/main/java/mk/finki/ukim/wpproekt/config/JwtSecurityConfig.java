@@ -26,6 +26,8 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
     private final CustomUsernamePasswordAuthenticationProvider authenticationProvider;
     private final EmployeeService employeeService;
 
+
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
@@ -35,7 +37,7 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and()
-                .addFilter(new AuthenticationFilter(authenticationManager(), employeeService, passwordEncoder))
+                .addFilter(new AuthenticationFilter(authenticationProvider, employeeService, passwordEncoder))
                 .addFilter(new AuthorizationFilter(authenticationManager(), employeeService))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
