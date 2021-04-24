@@ -1,11 +1,9 @@
 package mk.finki.ukim.wpproekt.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Data
 @Entity
